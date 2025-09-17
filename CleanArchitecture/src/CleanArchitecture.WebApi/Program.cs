@@ -17,6 +17,8 @@ builder.Services.AddMediatR(cfr =>
 
 builder.Services.AddScoped<ICarService, CarService>();
 
+builder.Services.AddAutoMapper(typeof(CleanArchitecture.Persistance.AssemblyReference).Assembly);
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
