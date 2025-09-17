@@ -1,4 +1,6 @@
+using CleanArchitecture.Application.Services;
 using CleanArchitecture.Persistance.Context;
+using CleanArchitecture.Persistance.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddMediatR(cfr =>
     cfr.RegisterServicesFromAssembly(typeof(CleanArchitecture.Application.AssemblyReference).Assembly));
+
+builder.Services.AddScoped<ICarService, CarService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
