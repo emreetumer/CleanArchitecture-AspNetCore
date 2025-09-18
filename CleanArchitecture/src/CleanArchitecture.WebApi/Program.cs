@@ -2,6 +2,7 @@ using CleanArchitecture.Application.Behaviors;
 using CleanArchitecture.Application.Services;
 using CleanArchitecture.Persistance.Context;
 using CleanArchitecture.Persistance.Services;
+using CleanArchitecture.WebApi.Middleware;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,7 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBeh
 builder.Services.AddValidatorsFromAssembly(typeof(CleanArchitecture.Application.AssemblyReference).Assembly);
 
 builder.Services.AddScoped<ICarService, CarService>();
+builder.Services.AddTransient<ExceptionMiddleware>();
 
 builder.Services.AddAutoMapper(typeof(CleanArchitecture.Persistance.AssemblyReference).Assembly);
 
@@ -35,6 +37,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddlewareExtensions();
 
 app.UseHttpsRedirection();
 
