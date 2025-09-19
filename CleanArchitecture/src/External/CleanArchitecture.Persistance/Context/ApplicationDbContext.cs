@@ -1,8 +1,9 @@
 ﻿using CleanArchitecture.Domain.Abstractions;
+using GenericRepository;
 using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Persistance.Context;
-public sealed class ApplicationDbContext : DbContext
+public sealed class ApplicationDbContext : DbContext, IUnitOfWork
 {
     public ApplicationDbContext(DbContextOptions options) : base(options)
     {
