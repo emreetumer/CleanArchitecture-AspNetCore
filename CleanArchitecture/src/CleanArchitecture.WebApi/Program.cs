@@ -21,7 +21,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<User, IdentityRole>(
+// opsiyonel olarak buraya da password ile ilgili kontroller yazýlabilir.
+//    options =>
+//{
+//    options.Password.RequireNonAlphanumeric = false;
+//    options.Password.RequiredLength = 3;
+//    options.Password.RequireUppercase = false;
+//}
+).AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddMediatR(cfr =>
     cfr.RegisterServicesFromAssembly(typeof(CleanArchitecture.Application.AssemblyReference).Assembly));
@@ -31,6 +39,8 @@ builder.Services.AddValidatorsFromAssembly(typeof(CleanArchitecture.Application.
 
 builder.Services.AddScoped<ICarService, CarService>();
 builder.Services.AddTransient<ExceptionMiddleware>();
+
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped<ICarRepository, CarRepository>();
 builder.Services.AddScoped<IUnitOfWork>(cfr => cfr.GetRequiredService<ApplicationDbContext>());
