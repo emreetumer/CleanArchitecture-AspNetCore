@@ -1,16 +1,16 @@
-﻿using CleanArchitecture.Application.Features.RoleFeatures.Command.CreateRole;
+﻿using CleanArchitecture.Application.Features.UserRoleFeatures.Commands.CreateUserRole;
 using CleanArchitecture.Domain.Dtos;
 using CleanArchitecture.Presentation.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.Presentation.Controllers;
-public sealed class RoleController : ApiController
+public sealed class UserRolesController : ApiController
 {
-    public RoleController(IMediator mediator) : base(mediator) { }
+    public UserRolesController(IMediator mediator) : base(mediator) { }
 
     [HttpPost("[action]")]
-    public async Task<IActionResult> Create(CreateRoleCommand request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Create(CreateUserRoleCommand request, CancellationToken cancellationToken)
     {
         MessageResponse response = await _mediator.Send(request, cancellationToken);
         return Ok(response);
