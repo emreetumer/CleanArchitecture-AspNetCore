@@ -35,7 +35,7 @@ public sealed class JwtProvider : IJwtProvider
         JwtSecurityToken jwtSecurityToken = new(
             issuer: _jwtOptions.Issuer,
             audience: _jwtOptions.Audience,
-            claims: null,
+            claims: claims,
             notBefore: DateTime.Now,
             expires: expires,
             signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey)), SecurityAlgorithms.HmacSha256));
@@ -52,10 +52,7 @@ public sealed class JwtProvider : IJwtProvider
             token,
             refreshToken,
             user.RefreshTokenExpires,
-            user.Id,
-            user.UserName,
-            user.NameLastName,
-            user.Email);
+            user.Id);
 
         return response;
 
