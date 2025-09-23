@@ -13,7 +13,6 @@ using FluentValidation;
 using GenericRepository;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -26,7 +25,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-builder.Services.AddIdentity<User, IdentityRole>(
+builder.Services.AddIdentity<User, Role>(
 // opsiyonel olarak buraya da password ile ilgili kontroller yazýlabilir.
 //    options =>
 //{
@@ -46,6 +45,8 @@ builder.Services.AddScoped<ICarService, CarService>();
 builder.Services.AddTransient<ExceptionMiddleware>();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddScoped<IRoleService, RoleService>();
 
 builder.Services.AddScoped<ICarRepository, CarRepository>();
 builder.Services.AddScoped<IUnitOfWork>(cfr => cfr.GetRequiredService<ApplicationDbContext>());
