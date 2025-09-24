@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
 
-namespace CleanArchitecture.WebApi.Coonfigurations;
+namespace CleanArchitecture.WebApi.Configurations;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection InstallService(this IServiceCollection services, IConfiguration configuration, params Assembly[] assemblies)
+    public static IServiceCollection InstallService(this IServiceCollection services, IConfiguration configuration, IHostBuilder hostBuilder, params Assembly[] assemblies)
     {
         IEnumerable<IServiceInstaller> serviceInstallers = assemblies
             .SelectMany(s => s.DefinedTypes)
@@ -14,7 +14,7 @@ public static class DependencyInjection
 
         foreach (IServiceInstaller serviceInstaller in serviceInstallers)
         {
-            serviceInstaller.Install(services, configuration);
+            serviceInstaller.Install(services, configuration, hostBuilder);
         }
         return services;
 

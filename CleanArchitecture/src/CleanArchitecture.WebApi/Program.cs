@@ -1,9 +1,9 @@
-using CleanArchitecture.WebApi.Coonfigurations;
+using CleanArchitecture.WebApi.Configurations;
 using CleanArchitecture.WebApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.InstallService(builder.Configuration, typeof(IServiceInstaller).Assembly);
+builder.Services.InstallService(builder.Configuration, builder.Host, typeof(IServiceInstaller).Assembly);
 
 var app = builder.Build();
 

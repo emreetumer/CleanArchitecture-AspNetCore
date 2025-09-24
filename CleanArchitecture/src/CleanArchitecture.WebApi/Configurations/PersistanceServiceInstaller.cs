@@ -1,12 +1,13 @@
 ﻿using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
-namespace CleanArchitecture.WebApi.Coonfigurations;
+namespace CleanArchitecture.WebApi.Configurations;
 
 public sealed class PersistanceServiceInstaller : IServiceInstaller
 {
-    public void Install(IServiceCollection services, IConfiguration configuration)
+    public void Install(IServiceCollection services, IConfiguration configuration, IHostBuilder hostBuilder)
     {
         services.AddAutoMapper(typeof
             (CleanArchitecture.Persistance.AssemblyReference).Assembly);
@@ -25,5 +26,18 @@ public sealed class PersistanceServiceInstaller : IServiceInstaller
         //    options.Password.RequireUppercase = false;
         //}
         ).AddEntityFrameworkStores<ApplicationDbContext>();
+
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Information()
+            .Enrich.FromLogContext()
+            .WriteTo.Console()
+            .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)
+            .WriteTo.MSSqlServer(
+            connectionString: configuration.GetConnectionString("DefaultConnection"),
+            tableName: "Logs",
+            autoCreateSqlTable: true)
+            .CreateLogger();
+
+        hostBuilder.UseSerilog();
     }
 }

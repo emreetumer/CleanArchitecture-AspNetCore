@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 
-namespace CleanArchitecture.WebApi.Coonfigurations;
+namespace CleanArchitecture.WebApi.Configurations;
 
 public sealed class PresentationServiceInstaller : IServiceInstaller
 {
-    public void Install(IServiceCollection services, IConfiguration configuration)
+    public void Install(IServiceCollection services, IConfiguration configuration, IHostBuilder hostBuilder)
     {
         services.AddControllers().AddApplicationPart(typeof(CleanArchitecture.Presentation.AssemblyReference).Assembly); // Presentation katmanını bildirdik burada.
 
