@@ -1,4 +1,4 @@
-📚 Clean Architecture in ASP.NET Core  
+#📚 Clean Architecture in ASP.NET Core
 Bu proje, .NET 8 üzerinde **Clean Architecture** prensiplerini uygulamalı olarak öğrenmek için hazırlanmıştır.  
 Kodlar katmanlı bir yapıda düzenlenmiş olup, her konu için ayrı örnekler içerir.  
 
