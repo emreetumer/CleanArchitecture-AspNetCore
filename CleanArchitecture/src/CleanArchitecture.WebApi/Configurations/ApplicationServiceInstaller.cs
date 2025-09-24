@@ -2,11 +2,11 @@
 using FluentValidation;
 using MediatR;
 
-namespace CleanArchitecture.WebApi.Coonfigurations;
+namespace CleanArchitecture.WebApi.Configurations;
 
 public sealed class ApplicationServiceInstaller : IServiceInstaller
 {
-    public void Install(IServiceCollection services, IConfiguration configuration)
+    public void Install(IServiceCollection services, IConfiguration configuration, IHostBuilder hostBuilder)
     {
         services.AddMediatR(cfr =>
             cfr.RegisterServicesFromAssembly(typeof(CleanArchitecture.Application.AssemblyReference).Assembly));
